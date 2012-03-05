@@ -17,10 +17,24 @@ class Vending_machine
       puts 'お金を入力(一回の入力で1000円以下、1円と5円は入らないよ!)'
       @money = gets.chomp
       @money = @money.to_i
-      if @money % 10 == 0 && @money <= 1000 
-        puts '-----お金が'+@money.to_s+'円入りました'
-      else 
-        puts '-----入力が不正です。やり直してください'
+  
+    if  @money < 0
+          puts 'やめてください。お金をとらないでください。妻も子どももいるんです。'
+          puts ''
+          payment
+    end
+    
+    if @money % 10 == 0 && @money <= 1000 
+   
+      if @money == 0
+          puts 'お願いします。お金をください。'
+          payment
+      end
+        puts '-----お金が' + @money.to_s + '円入りました'
+ 
+    else
+      puts '-----一回の入力で1000円以下、1円と5円は入らないらしいです。<-'
+      puts ''
         payment
       end
       selecting
@@ -37,8 +51,8 @@ class Vending_machine
       puts d2
       puts d3
 
-      drink=gets.chomp
-      drink=drink.to_i
+      drink = gets.chomp
+      drink = drink.to_i
 
       case drink
         when 1
@@ -57,7 +71,7 @@ class Vending_machine
  
     puts '-----あなたは'+ d +'を選択しました。'
     puts ''
-    oturi=@money-@price
+    oturi = @money-@price
    
     if oturi < 0 
         #Numeric#absメソッド=>絶対値を求める
@@ -74,7 +88,7 @@ class Vending_machine
  
   def change oturi
         if oturi == 0
-          puts 'お釣りはないのですよ。'
+          puts '-----お釣りはないのですよ。'
         else 
           puts 'お釣りです。チャリンチャリーン'
           puts '-----あなたは' + oturi.to_s + '円のお釣りを受け取った'
@@ -85,5 +99,5 @@ class Vending_machine
 
 end
 
-vm = Vending_machine.new
+Vending_machine.new
 
