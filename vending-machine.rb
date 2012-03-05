@@ -7,7 +7,6 @@
 - おつりが出てくるメソッドを実装。
 =end
 
-
 class Vending_machine 
 
   def initialize
@@ -15,7 +14,6 @@ class Vending_machine
   end
 
   def payment
-    while true do
       puts 'お金を入力(一回の入力で1000円以下、1円と5円は入らないよ!)'
       @money = gets.chomp
       @money = @money.to_i
@@ -23,21 +21,18 @@ class Vending_machine
         puts '-----お金が'+@money.to_s+'円入りました'
       else 
         puts '-----入力が不正です。やり直してください'
-        @money=0
         payment
       end
       selecting
-    end 
-  end
+  end 
 
   def selecting 
     d1='1:おいしいみず(200円)'
     d2='2:サイコソーダ(300円)'
     d3='3:ミックスオレ(350円)'
-    
 
-    while true do
-      puts "\n"+'商品を選んで下さい (1~3までの数字を入力)'
+      puts ''
+      puts'商品を選んで下さい (1~3までの数字を入力)'
       puts d1 
       puts d2
       puts d3
@@ -49,47 +44,45 @@ class Vending_machine
         when 1
           @price = 200
           d=d1
-          break
         when 2
           @price = 300 
           d=d2
-          break
         when 3
           @price = 350
           d=d3
-          break
         else
           puts '-----それはボタンではありませんやり直し'
-          @price=0
+          selecting
         end
-      end
-    
+ 
     puts '-----あなたは'+ d +'を選択しました。'
-    printf "\n"
-    @oturi=@money-@price
+    puts ''
+    oturi=@money-@price
    
-    if @oturi < 0 
+    if oturi < 0 
         #Numeric#absメソッド=>絶対値を求める
-        puts '-----あ、お金が'+@oturi.abs.to_s+'円、不足しています。再度入力してね'
-        printf "\n"
+        puts '-----あ、お金が'+oturi.abs.to_s+'円、不足しています。再度入力してね'
+        puts ''
+        payment
     else
-        puts 'ガタンッ'+"\n"
+        puts 'ガタンッ'
         puts '-----あなたはおもむろに' + d +'をとりだした。'
-        
-        change
-      end
+        puts ''
+        change oturi
     end
-  
-    def change
-      if @oturi > 0
-        puts 'お釣りです。チャリンチャリーン'
-        puts '-----あなたは' + @oturi.to_s + '円のお釣りを受け取った'
-        printf "\n"
-      else 
-        puts '-----お釣りは無いです。一昨日きやがってください'
-        printf "\n"
-    end
-    end
+   end
+ 
+  def change oturi
+        if oturi == 0
+          puts 'お釣りはないのですよ。'
+        else 
+          puts 'お釣りです。チャリンチャリーン'
+          puts '-----あなたは' + oturi.to_s + '円のお釣りを受け取った'
+          puts ''
+          exit
+        end
+   end
+
 end
 
 vm = Vending_machine.new
