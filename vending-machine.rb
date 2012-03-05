@@ -20,9 +20,9 @@ class Vending_machine
       @money = gets.chomp
       @money = @money.to_i
       if @money % 10 == 0 && @money <= 1000 
-        puts 'お金が'+@money.to_s+'円入りました'
+        puts '-----お金が'+@money.to_s+'円入りました'
       else 
-        puts 'やり直し'
+        puts '-----入力が不正です。やり直してください'
         @money=0
         payment
       end
@@ -59,21 +59,22 @@ class Vending_machine
           d=d3
           break
         else
-          puts 'それはボタンではありませんやり直し'
+          puts '-----それはボタンではありませんやり直し'
           @price=0
         end
       end
     
-    puts 'あなたは'+ d +'を選択しました。'
+    puts '-----あなたは'+ d +'を選択しました。'
     printf "\n"
     @oturi=@money-@price
    
     if @oturi < 0 
         #Numeric#absメソッド=>絶対値を求める
-        puts 'あ、お金が'+@oturi.abs.to_s+'円、不足しています。再度入力してね'
+        puts '-----あ、お金が'+@oturi.abs.to_s+'円、不足しています。再度入力してね'
         printf "\n"
     else
-        puts 'ガタンッ あなたはおもむろに' + d +'をとりだした。'
+        puts 'ガタンッ'+"\n"
+        puts '-----あなたはおもむろに' + d +'をとりだした。'
         
         change
       end
@@ -82,10 +83,10 @@ class Vending_machine
     def change
       if @oturi > 0
         puts 'お釣りです。チャリンチャリーン'
-        puts 'あなたは' + @oturi.to_s + '円のお釣りを受け取った'
+        puts '-----あなたは' + @oturi.to_s + '円のお釣りを受け取った'
         printf "\n"
       else 
-        puts 'お釣りは無いです。一昨日きやがってください'
+        puts '-----お釣りは無いです。一昨日きやがってください'
         printf "\n"
     end
     end
