@@ -14,32 +14,35 @@ class Vending_machine
   end
 
   def payment
+    while true 
       puts 'お金を入力(一回の入力で1000円以下、1円と5円は入らないよ!)'
       @money = gets.chomp
       @money = @money.to_i
-  
-    if  @money < 0
-          puts 'やめてください。お金をとらないでください。妻も子どももいるんです。'
-          puts ''
-          payment
-    end
     
-    if @money % 10 == 0 && @money <= 1000 
-   
+      if  @money < 0
+        puts '-----やめてください。お金をとらないでください。'
+        puts ''
+        next
+      end
+      
+      #0入力
       if @money == 0
-          puts 'お願いします。お金をください。'
-          payment
+        puts '-----お願いします。お金をください。'
+        puts ''
+        next
       end
-        puts '-----お金が' + @money.to_s + '円入りました'
- 
-    else
-      puts '-----一回の入力で1000円以下、1円と5円は入らないらしいです。<-'
-      puts ''
-        payment
-      end
-      selecting
-  end 
 
+     
+      if @money % 10 == 0 && 0 < @money && @money <= 1000 
+        puts '-----お金が' + @money.to_s + '円入りました'
+        selecting
+      else
+        puts '-----一回の入力で1000円以下、1円と5円は入らないらしいです。'
+        puts ''
+      end
+    end #whileend 
+  end 
+  
   def selecting 
     d1='1:おいしいみず(200円)'
     d2='2:サイコソーダ(300円)'
@@ -93,11 +96,11 @@ class Vending_machine
           puts 'お釣りです。チャリンチャリーン'
           puts '-----あなたは' + oturi.to_s + '円のお釣りを受け取った'
           puts ''
-          exit
         end
+     exit
    end
 
-end
+end #classend
 
 Vending_machine.new
 
